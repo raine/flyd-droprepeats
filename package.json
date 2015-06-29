@@ -1,6 +1,6 @@
 {
   "name": "flyd-droprepeats",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Drop repeated values with Flyd",
   "main": "index.js",
   "scripts": {
