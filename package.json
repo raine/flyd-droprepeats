@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha"
   },
+  "repository": "raine/flyd-droprepeats",
   "author": "Raine Virta <raine.virta@gmail.com>",
   "license": "MIT",
   "dependencies": {
