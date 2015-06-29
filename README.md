@@ -6,14 +6,15 @@ Drops consecutively repeated values from a
 __Usage__
 
 ```js
-var s = flyd.stream();
 var append = function(arr, x) {
   return arr.concat(x);
 };
 
-var noRepeats = flyd.scan(append, [], dropRepeats(s));
+var s = flyd.stream();
+var noRepeats = dropRepeats(s);
+var collect = flyd.scan(append, [], noRepeats);
 s(1)(2)(2)(3);
-noRepeats() // [1, 2, 3]
+collect() // [1, 2, 3]
 ```
 
 Optionally takes a function argument before the stream that will be used to
@@ -22,8 +23,9 @@ determine equality.
 ```js
 // Ramda's `equals` determines equality by value
 var s = flyd.stream();
-var noRepeats = flyd.scan(append, [], dropRepeats(R.equals, s));
+var noRepeats = dropRepeats(R.equals, s);
+var collect = flyd.scan(append, [], noRepeats);
 s({ foo: 'bar' });
 s({ foo: 'bar' });
-noRepeats() // [{ foo: 'bar' }]
+collect() // [{ foo: 'bar' }]
 ```
