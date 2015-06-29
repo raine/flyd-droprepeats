@@ -3,9 +3,20 @@
 Drops consecutively repeated values from a
 [Flyd](https://github.com/paldepind/flyd) stream.
 
+## API
+
+### dropRepeats(s)
+
+Drops repeated values from stream `s`. Equality is determined by reference.
+
+__Signature__
+
+`Stream a -> Stream a`
+
 __Usage__
 
 ```js
+var dropRepeats = require('flyd-droprepeats').dropRepeats;
 var append = function(arr, x) {
   return arr.concat(x);
 };
@@ -17,13 +28,20 @@ s(1)(2)(2)(3);
 collect() // [1, 2, 3]
 ```
 
-Optionally takes a function argument before the stream that will be used to
-determine equality.
+### dropRepeatsWith(fn, s)
+
+Drops repeated values from stream `s`, but also takes a function `fn` that
+will be used to determine equality.
+
+__Signature__
+
+`(a -> b -> Boolean) -> Stream a -> Stream a`
 
 ```js
-// Ramda's `equals` determines equality by value
+var dropRepeatsWith = require('flyd-droprepeats').dropRepeatsWith;
 var s = flyd.stream();
-var noRepeats = dropRepeats(R.equals, s);
+// Ramda's `equals` determines equality by value
+var noRepeats = dropRepeatsWith(R.equals, s);
 var collect = flyd.scan(append, [], noRepeats);
 s({ foo: 'bar' });
 s({ foo: 'bar' });

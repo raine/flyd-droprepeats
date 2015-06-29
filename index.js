@@ -1,11 +1,6 @@
 var flyd = require('flyd');
 
-module.exports = function(eq, s) {
-  if (flyd.isStream(eq)) {
-    s  = eq;
-    eq = strictEq;
-  }
-
+function dropRepeatsWith(eq, s) {
   var prev;
   return flyd.stream([s], function(self) {
     if (!eq(s.val, prev)) {
@@ -13,7 +8,13 @@ module.exports = function(eq, s) {
       prev = s.val;
     }
   });
+}
+
+exports.dropRepeats = function(s) {
+  return dropRepeatsWith(strictEq, s);
 };
+
+exports.dropRepeatsWith = flyd.curryN(2, dropRepeatsWith);
 
 function strictEq(a, b) {
   return a === b;

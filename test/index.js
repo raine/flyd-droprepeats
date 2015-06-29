@@ -1,6 +1,7 @@
 var flyd = require('flyd');
 var stream = flyd.stream;
-var dropRepeats = require('../');
+var dropRepeats = require('../').dropRepeats;
+var dropRepeatsWith = require('../').dropRepeatsWith;
 var R = require('ramda');
 var assert = require('chai').assert;
 
@@ -24,10 +25,23 @@ describe('dropRepeats', function() {
       { foo: 'bar' },
     ]);
   });
+});
 
-  it('takes an optional function for using custom equality logic', function() {
+describe('dropRepeatsWith', function() {
+  it('takes a function for using custom equality logic', function() {
     var s = stream();
-    var all = flyd.scan(R.flip(R.append), [], dropRepeats(R.equals, s));
+    var all = collect(dropRepeatsWith(R.equals, s));
+    s({ foo: 'bar' });
+    s({ foo: 'bar' });
+    assert.deepEqual(all(), [
+      { foo: 'bar' }
+    ]);
+  });
+
+  it('is curried', function() {
+    var s = stream();
+    var equalsDropper = dropRepeatsWith(R.equals);
+    var all = collect(equalsDropper(s));
     s({ foo: 'bar' });
     s({ foo: 'bar' });
     assert.deepEqual(all(), [
