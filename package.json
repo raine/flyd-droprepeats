@@ -1,0 +1,19 @@
+{
+  "name": "flyd-droprepeats",
+  "version": "1.0.0",
+  "description": "Drop repeated values with Flyd",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Raine Virta <raine.virta@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "flyd": "^0.1.13"
+  },
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "mocha": "^2.2.5",
+    "ramda": "^0.15.1"
+  }
+}
