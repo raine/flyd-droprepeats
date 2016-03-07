@@ -9,8 +9,11 @@
   "repository": "raine/flyd-droprepeats",
   "author": "Raine Virta <raine.virta@gmail.com>",
   "license": "MIT",
+  "peerDependencies": {
+    "flyd": "~0.2.0"
+  },
   "dependencies": {
-    "flyd": "^0.1.13"
+    "flyd": "~0.2.0"
   },
   "devDependencies": {
     "chai": "^3.0.0",

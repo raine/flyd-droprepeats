@@ -2,12 +2,13 @@ var flyd = require('flyd');
 
 function dropRepeatsWith(eq, s) {
   var prev;
-  return flyd.stream([s], function(self) {
-    if (!eq(s.val, prev)) {
-      self(s.val);
-      prev = s.val;
+  return flyd.combine(function(s) {
+    var current = s();
+    if (!eq(current, prev)) {
+      prev = current;
+      return current;
     }
-  });
+  }, [s]);
 }
 
 exports.dropRepeats = function(s) {
